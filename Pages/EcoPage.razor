@@ -1,0 +1,68 @@
+﻿@page "/grid"
+<h3>Grid</h3>
+
+<div>
+    <EditForm Model=delta>
+    <table class="table">
+
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>Id</th>
+                <th>Requerid by</th>
+                <th>Authorized by</th>
+                <th>ECO Complete</th>
+                <th>DELTA Complete</th>
+
+            </tr>
+        </thead>
+        <tbody>
+
+        @foreach (var item in deltaList)
+        {
+            
+                    <tr>
+                        @if(editRow!=item.index)
+                        {
+                        <td class="edit-mode">@(item.index=index)</td>
+                        <td class="edit-mode">@item.Id</td>
+                        <td class="edit-mode">@item.Name</td>
+                        <td class="edit-mode">@item.LastName</td>
+                        <td class="edit-mode">@item.UnitPrice</td>
+                        <td class="edit-mode">@item.Item</td>
+                            
+                        }
+                        else
+                        {
+                            
+                                    <td><InputNumber @bind-Value=@delta.Id></InputNumber> </td>
+
+                       <td><InputText @bind-Value=@delta.Name></InputText> </td>
+                        <td ><InputText @bind-Value=@delta.LastName></InputText> </td>
+                        <td ><InputNumber @bind-Value=@delta.UnitPrice></InputNumber></td>
+                        <td><InputText @bind-Value=@delta.Item></InputText> </td>
+                         
+
+                        }
+                        <td> 
+                            <button class="btn btn-secondary" @onclick="()=>EnableEditMode(item.index)">Edit</button>
+                            <button class="btn btn-secondary" @onclick="()=>Save(item.index,item.Name)">Save</button>
+                                <button class="btn btn-secondary" @onclick="()=>Cancel()">Cancel</button>
+                            
+                         
+                        </td>
+                </tr>
+            index++;
+            
+        }
+       
+        </tbody>
+    </table>
+    </EditForm>
+    </div>
+
+
+
+  <button onclick="addRow()">Agregar Fila</button>
+  <button type="button" class="btn btn-secondary" @onclick="FormClosed">Save</button>
+
